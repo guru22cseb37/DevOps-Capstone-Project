@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevOpsPulse — Premium Pipeline Telemetry Dashboard</title>
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Background Glow FX -->
+  <div class="glow-bg-1"></div>
+  <div class="glow-bg-2"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="main-header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <i class="fa-solid fa-chart-line-up fa-beat-slow"></i>
+        </div>
+        <div class="logo-text">
+          <h1>DevOps<span>Pulse</span></h1>
+          <p class="tagline">Enterprise Pipeline & Node.js Server Telemetry</p>
+        </div>
+      </div>
+      <div class="system-status">
+        <span class="status-badge pulse-green">
+          <span class="dot"></span> Pipeline Active
+        </span>
+        <span class="host-tag" id="hostname-display"><i class="fa-solid fa-server"></i> devops-node-ec2</span>
+      </div>
+    </header>
+
+    <!-- Main Grid Dashboard -->
+    <main class="dashboard-grid">
+      
+      <!-- Metrics Section -->
+      <section class="metrics-cards-row">
+        <!-- CPU Card -->
+        <div class="metric-card card-glow-blue" id="cpu-card">
+          <div class="card-header">
+            <span class="card-title">CPU Utilization</span>
+            <div class="card-icon"><i class="fa-solid fa-microchip"></i></div>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-value" id="cpu-val">0%</span>
+            <div class="progress-bar-container">
+              <div class="progress-fill fill-blue" id="cpu-bar" style="width: 0%"></div>
+            </div>
+          </div>
+          <p class="metric-subtext">System processor execution core loads</p>
+        </div>
+
+        <!-- RAM Card -->
+        <div class="metric-card card-glow-emerald" id="ram-card">
+          <div class="card-header">
+            <span class="card-title">Memory Allocation</span>
+            <div class="card-icon"><i class="fa-solid fa-memory"></i></div>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-value" id="ram-val">0%</span>
+            <div class="progress-bar-container">
+              <div class="progress-fill fill-emerald" id="ram-bar" style="width: 0%"></div>
+            </div>
+          </div>
+          <p class="metric-subtext" id="ram-details">Used: 0 GB / Total: 0 GB</p>
+        </div>
+
+        <!-- Storage Card -->
+        <div class="metric-card card-glow-orange" id="disk-card">
+          <div class="card-header">
+            <span class="card-title">Disk Storage</span>
+            <div class="card-icon"><i class="fa-solid fa-hard-drive"></i></div>
+          </div>
+          <div class="metric-value-wrap">
+            <span class="metric-value" id="disk-val">42%</span>
+            <div class="progress-bar-container">
+              <div class="progress-fill fill-orange" id="disk-bar" style="width: 42%"></div>
+            </div>
+          </div>
+          <p class="metric-subtext" id="disk-details">Used: 33.6 GB / Total: 80.0 GB</p>
+        </div>
+
+        <!-- Uptime Card -->
+        <div class="metric-card card-glow-purple" id="uptime-card">
+          <div class="card-header">
+            <span class="card-title">Server Uptime</span>
+            <div class="card-icon"><i class="fa-solid fa-clock"></i></div>
+          </div>
+          <div class="uptime-value-wrap">
+            <span class="uptime-val" id="uptime-val">0d 0h 0m 0s</span>
+          </div>
+          <p class="metric-subtext">Time since last node environment deploy</p>
+        </div>
+      </section>
+
+      <!-- Main Graph and Controls Content -->
+      <section class="dashboard-middle-row">
+        <!-- Live Chart Card -->
+        <div class="chart-container-card glass-panel">
+          <div class="section-header">
+            <h3><i class="fa-solid fa-wave-pulse text-blue"></i> Real-time Telemetry Load (Live Stream)</h3>
+            <span class="live-indicator"><span class="dot blinking"></span> SCRAPING AT 2s</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="telemetryChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Control Operations Panel -->
+        <div class="operations-panel-card glass-panel">
+          <div class="section-header">
+            <h3><i class="fa-solid fa-gears text-emerald"></i> Devops Pipelines & Automation</h3>
+          </div>
+          
+          <div class="operations-controls">
+            <!-- Load Spiker -->
+            <button class="ops-btn btn-blue" id="btn-spike">
+              <div class="btn-icon"><i class="fa-solid fa-fire"></i></div>
+              <div class="btn-text-content">
+                <span class="btn-title">Simulate CPU Spike</span>
+                <span class="btn-desc">Artificially loads core metrics [30s]</span>
+              </div>
+            </button>
+
+            <!-- Backup Run -->
+            <button class="ops-btn btn-emerald" id="btn-backup">
+              <div class="btn-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+              <div class="btn-text-content">
+                <span class="btn-title">Trigger Automated Backup</span>
+                <span class="btn-desc">Executes backup.sh shell script</span>
+              </div>
+            </button>
+
+            <!-- Log Purger -->
+            <button class="ops-btn btn-orange" id="btn-cleanup">
+              <div class="btn-icon"><i class="fa-solid fa-trash-can"></i></div>
+              <div class="btn-text-content">
+                <span class="btn-title">Prune Historical Logs</span>
+                <span class="btn-desc">Executes cleanup.sh to free space</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Terminal Output and Process Manager -->
+      <section class="dashboard-bottom-row">
+        <!-- Process Table Panel -->
+        <div class="process-panel-card glass-panel">
+          <div class="section-header">
+            <h3><i class="fa-solid fa-list-check text-purple"></i> Active Container Processes</h3>
+          </div>
+          <div class="table-scroll-wrapper">
+            <table class="process-table">
+              <thead>
+                <tr>
+                  <th>PID</th>
+                  <th>Process Name</th>
+                  <th>CPU %</th>
+                  <th>Memory %</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="process-list">
+                <!-- Will be loaded dynamically -->
+                <tr>
+                  <td colspan="5" class="table-loading">Awaiting data stream...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Terminal Console Panel -->
+        <div class="terminal-panel-card glass-panel">
+          <div class="section-header">
+            <h3><i class="fa-solid fa-terminal text-orange"></i> DevOps Terminal Console</h3>
+            <button class="clear-terminal-btn" id="btn-clear-term"><i class="fa-solid fa-eraser"></i> Clear</button>
+          </div>
+          <div class="terminal-body" id="terminal-stdout">
+            <div class="term-line output-system">Welcome to DevOpsPulse Terminal. System shell interface initialized.</div>
+            <div class="term-line output-system">Click "Trigger Automated Backup" or "Prune Historical Logs" to witness shell script execution details.</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-left">
+        <p>&copy; 2026 DevOpsPulse. Capstone Project Submission. All rights reserved.</p>
+      </div>
+      <div class="footer-right">
+        <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i> GitHub Repo</a>
+        <span class="separator">|</span>
+        <span>Jenkins Deployment Server: 10.0.1.240</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # 1. Primary Node.js Dashboard Web Application
+  app:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    container_name: devopspulse-app
+    restart: unless-stopped
+    ports:
+      - "3005:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    networks:
+      - devops-net
+
+  # 2. Prometheus Telemetry Scraper
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: devopspulse-prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    ports:
+      - "9095:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    depends_on:
+      - app
+      - node-exporter
+    networks:
+      - devops-net
+
+  # 3. Node-Exporter for Host OS Telemetry
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: devopspulse-node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($|/)'
+    ports:
+      - "9105:9100"
+    networks:
+      - devops-net
+
+  # 4. Grafana Visualizer Core
+  grafana:
+    image: grafana/grafana:latest
+    container_name: devopspulse-grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3015:3000"  # Mapping Grafana dashboard to 3015 to prevent collisions
+    depends_on:
+      - prometheus
+    networks:
+      - devops-net
+
+networks:
+  devops-net:
+    driver: bridge
+
+volumes:
+  prometheus-data:
+  grafana-data:

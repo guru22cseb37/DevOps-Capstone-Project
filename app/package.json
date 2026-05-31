@@ -1,0 +1,16 @@
+{
+  "name": "devops-pulse",
+  "version": "1.0.0",
+  "description": "Premium DevOps real-time system monitoring dashboard application",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "prom-client": "^15.1.2"
+  },
+  "author": "DevOps Expert",
+  "license": "ISC"
+}

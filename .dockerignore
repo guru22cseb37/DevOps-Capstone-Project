@@ -1,0 +1,21 @@
+# Local dependencies
+node_modules
+npm-debug.log
+
+# IDE files
+.vscode
+.idea
+.git
+.gitignore
+
+# Project docs and assets
+assets
+*.pdf
+*.docx
+generate_report.py
+scripts/*.sh
+
+# Docker configurations
+docker/
+Dockerfile
+docker-compose.yml
