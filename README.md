@@ -12,6 +12,12 @@
   <strong>A high-performance system telemetry dashboard, automated bash engine, and secure CI/CD continuous delivery lifecycle.</strong>
 </p>
 
+<p align="center">
+  <a href="http://54.92.189.120:3005/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀%20Live%20Deployment-http%3A%2F%2F54.92.189.120%3A3005%2F-blueviolet?style=for-the-badge&logo=amazon-ec2" alt="Live Deployment Link" />
+  </a>
+</p>
+
 </div>
 
 ---
@@ -123,6 +129,15 @@ This command mounts and initiates the following local endpoints:
 * **📊 Prometheus Console Scraper:** [http://localhost:9095](http://localhost:9095)
 * **📈 Grafana Dashboard Visualization:** [http://localhost:3015](http://localhost:3015) *(Default Credentials: `admin` / `admin`)*
 * **⚙️ Node Exporter Raw Metrics:** [http://localhost:9105/metrics](http://localhost:9105/metrics)
+
+---
+
+### ☁️ AWS Live Production Endpoints
+For live evaluation on our active AWS EC2 hosting nodes:
+* **💻 Live Production Dashboard UI:** **[http://54.92.189.120:3005](http://54.92.189.120:3005)**
+* **📊 Live Prometheus Scraping Console:** **[http://54.92.189.120:9095](http://54.92.189.120:9095)**
+* **📈 Live Grafana Dashboard Analytics:** **[http://54.92.189.120:3015](http://54.92.189.120:3015)**
+* **⚙️ Live Node Exporter Metrics Feed:** **[http://54.92.189.120:9105/metrics](http://54.92.189.120:9105/metrics)**
 
 ---
 
