@@ -133,11 +133,8 @@ This command mounts and initiates the following local endpoints:
 ---
 
 ### ☁️ AWS Live Production Endpoints
-For live evaluation on our active AWS EC2 hosting nodes:
+For live evaluation on our active AWS EC2 hosting node:
 * **💻 Live Production Dashboard UI:** **[http://54.92.189.120:3005](http://54.92.189.120:3005)**
-* **📊 Live Prometheus Scraping Console:** **[http://54.92.189.120:9095](http://54.92.189.120:9095)**
-* **📈 Live Grafana Dashboard Analytics:** **[http://54.92.189.120:3015](http://54.92.189.120:3015)**
-* **⚙️ Live Node Exporter Metrics Feed:** **[http://54.92.189.120:9105/metrics](http://54.92.189.120:9105/metrics)**
 
 ---
 
