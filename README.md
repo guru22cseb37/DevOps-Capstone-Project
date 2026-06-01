@@ -25,7 +25,7 @@ graph TD
     Developer([💻 Developer]) -->|Git Push| GitHub[🐙 GitHub Repository]
     GitHub -->|Webhook Trigger| Jenkins[👷 Jenkins CI/CD on AWS EC2]
     
-    subgraph Jenkins Pipeline
+    subgraph "Jenkins Pipeline"
         direction TB
         J1[1. Lint & Code Quality] --> J2[2. Unit Testing Suite]
         J2 --> J3[3. Multi-Stage Docker Build]
@@ -36,7 +36,7 @@ graph TD
     Jenkins-Build -->|Yes| PushReg[🐳 Docker Hub Registry]
     PushReg --> SSHDeploy[🚀 SSH Continuous Deployment]
     
-    subgraph Target Host Server (AWS EC2)
+    subgraph "Target Host Server (AWS EC2)"
         direction TB
         SSHDeploy --> PullImg[Pull Latest Image]
         PullImg --> RunCont[Launch DevOpsPulse Container]
@@ -44,7 +44,7 @@ graph TD
         Prometheus --> Grafana[📈 Grafana Dashboard Visualization]
     end
     
-    subgraph Local Server Crontab
+    subgraph "Local Server Crontab"
         Cron[⏰ Cron Scheduler] -->|Hourly / Daily| Bsh[backup.sh Archive utility]
         Cron -->|Weekly| Csh[cleanup.sh Pruning utility]
     end
