@@ -9,6 +9,3 @@ demo.pem
 *.tar.gz
 *.pdf
 DevOps_Capstone_Project_Report.pdf
-
-# Exclude binary visual assets
-assets/

@@ -162,6 +162,60 @@ Append the following configuration lines to run backups daily at midnight and lo
 
 ---
 
+## 📷 Visual Proof of Deployment & Observability
+
+To demonstrate successful end-to-end execution of our automated pipeline, deployment processes, and live server observability, please find our core telemetry visual assets below:
+
+### A. Jenkins Declarative CI/CD Build Pipeline
+Our Jenkins pipeline successfully hooks into GitHub commits, executing code checkouts, installing Node dependencies, linting source files, running unit tests, packaging production Docker images, distributing them to public registries, and triggering automated SSH deploys to cloud instances.
+<br>
+<div align="center">
+  <img src="assets/jenkinsoriginal.png" width="720" alt="Jenkins Declarative CI/CD Pipeline Green Stage View" />
+  <p><em>Figure 2.1: Jenkins Build Automation Stage View showing 100% successful code validations and automated delivery runs.</em></p>
+</div>
+
+<br>
+
+### B. AWS Cloud VM Deployments (EC2 Linux Nodes)
+The containerized telemetry cluster runs live inside virtual computing machines hosted within the Amazon Web Services (AWS) ecosystem.
+<br>
+<div align="center">
+  <img src="assets/awsoriginal.png" width="720" alt="AWS EC2 Active Server VM Instances Console" />
+  <p><em>Figure 2.2: AWS EC2 active server instances console confirming host environment connectivity on IP address `54.92.189.120`.</em></p>
+</div>
+
+<br>
+
+### C. DevOpsPulse Telemetry Dashboard UI
+The futuristic glassmorphic server metrics dashboard runs live on the AWS target node, offering real-time Chart.js polling and automated script logs triggers.
+<br>
+<div align="center">
+  <img src="assets/dashboardoriginal.png" width="720" alt="DevOpsPulse Telemetry Web Application Dashboard" />
+  <p><em>Figure 2.3: Premium dark-theme application console displaying live Node.js telemetry.</em></p>
+</div>
+
+<br>
+
+### D. Prometheus Metrics Scraper UI
+The Prometheus scraping console is deployed on port `:9095`, actively polling physical server metrics and application system telemetries.
+<br>
+<div align="center">
+  <img src="assets/prometheusoriginal.png" width="720" alt="Prometheus Target Metrics Scraper Console" />
+  <p><em>Figure 2.4: Prometheus target metrics dashboard gathering live telemetry feeds.</em></p>
+</div>
+
+<br>
+
+### E. Grafana Futuristic Observability & Scraping Dashboards
+Our scraping topology polls server telemetry parameters at aggressive intervals, creating real-time visual trends in Grafana on port `:3015`.
+<br>
+<div align="center">
+  <img src="assets/graffanaoriginal.png" width="720" alt="Grafana Telemetry Dashboard Analytics Charts" />
+  <p><em>Figure 2.5: Grafana Live Telemetry observability dashboard rendering line graph histories and physical hardware metrics.</em></p>
+</div>
+
+---
+
 ## 🛡️ Production Security & Optimizations
 
 This codebase implements several industry-standard enterprise security practices:
