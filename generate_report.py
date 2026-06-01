@@ -316,14 +316,14 @@ def create_devops_report(output_filename):
     
     story.append(Spacer(1, 15))
     
-    # Embed Telemetry Dashboard Image as Figure 1.1
-    dash_img_path = "assets/dashboardoriginal.png"
-    if os.path.exists(dash_img_path):
-        story.append(Image(dash_img_path, width=420, height=210))
+    # Embed System Architecture Diagram as Figure 1.1
+    arch_img_path = "assets/architecture_diagram.png"
+    if os.path.exists(arch_img_path):
+        story.append(Image(arch_img_path, width=420, height=230))
         story.append(Spacer(1, 4))
-        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 1.1: Live DevOpsPulse System Telemetry Web Application Dashboard Interface.</i></font>", style_body))
+        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 1.1: System Architecture and Automated End-to-End DevOps Pipeline Diagram.</i></font>", style_body))
     else:
-        story.append(Paragraph("[Telemetry Dashboard Image Placeholder]", style_body))
+        story.append(Paragraph("[Missing Architecture Image Placeholder]", style_body))
         
     story.append(Spacer(1, 10))
     story.append(Paragraph("4. Network and Security Group Topologies", style_h2))
@@ -619,9 +619,46 @@ def create_devops_report(output_filename):
     story.append(PageBreak())
 
     # ==============================================================================
-    #  PAGE 9: Pipeline Proof of Execution (screenshots Part 3)
+    #  PAGE 9: Pipeline Proof of Execution (Telemetry Dashboard & Docker Containerization)
     # ==============================================================================
-    story.append(Paragraph("12. Observability & Data Visualization", style_h1))
+    story.append(Paragraph("12. Telemetry Web Dashboard & Docker Containerization", style_h1))
+    
+    dock_intro = (
+        "This section verifies the operational execution of the front-facing DevOpsPulse Web Dashboard "
+        "and compiles secure Docker Hub repository registry pushes."
+    )
+    story.append(Paragraph(dock_intro, style_body))
+    
+    # Embed DevOpsPulse Dashboard as Figure 2.3
+    story.append(Spacer(1, 10))
+    story.append(Paragraph("A. DevOpsPulse Dynamic Telemetry Web Dashboard", style_h2))
+    
+    dash_img_path = "assets/dashboardoriginal.png"
+    if os.path.exists(dash_img_path):
+        story.append(Image(dash_img_path, width=420, height=210))
+        story.append(Spacer(1, 4))
+        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.3: Live DevOpsPulse System Telemetry Web Application Dashboard Interface running on AWS port 3005.</i></font>", style_body))
+    else:
+        story.append(Paragraph("[Missing DevOpsPulse Dashboard Image Placeholder]", style_body))
+        
+    # Embed Docker Hub Pushed Registry details as Figure 2.4
+    story.append(Spacer(1, 15))
+    story.append(Paragraph("B. Docker Hub Image Creation & Container Runtime Proof", style_h2))
+    
+    docker_img_path = "assets/dockeroriginal.png"
+    if os.path.exists(docker_img_path):
+        story.append(Image(docker_img_path, width=420, height=210))
+        story.append(Spacer(1, 4))
+        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.4: Production Docker image details and running container metadata confirming isolated process execution.</i></font>", style_body))
+    else:
+        story.append(Paragraph("[Missing Docker Hub Pushed Registry Image Placeholder]", style_body))
+        
+    story.append(PageBreak())
+
+    # ==============================================================================
+    #  PAGE 10: Observability & Data Visualization
+    # ==============================================================================
+    story.append(Paragraph("13. Observability & Data Visualization", style_h1))
     
     obs_intro = (
         "Real-time monitoring is critical for identifying system resource bottlenecks early. This section verifies "
@@ -629,29 +666,29 @@ def create_devops_report(output_filename):
     )
     story.append(Paragraph(obs_intro, style_body))
     
-    # Embed Grafana Screenshot as Figure 2.3
+    # Embed Prometheus Screenshot as Figure 2.5
     story.append(Spacer(1, 10))
-    story.append(Paragraph("A. Grafana Futuristic Telemetry Analytics Dashboard", style_h2))
+    story.append(Paragraph("A. Prometheus Scraper Target Metrics UI", style_h2))
+    
+    prom_img_path = "assets/prometheusoriginal.png"
+    if os.path.exists(prom_img_path):
+        story.append(Image(prom_img_path, width=420, height=210))
+        story.append(Spacer(1, 4))
+        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.5: Prometheus target metrics console actively gathering hardware data on host port 9095.</i></font>", style_body))
+    else:
+        story.append(Paragraph("[Missing Prometheus UI Image Placeholder]", style_body))
+        
+    # Embed Grafana Screenshot as Figure 2.6
+    story.append(Spacer(1, 15))
+    story.append(Paragraph("B. Grafana Telemetry Dashboard Analytics", style_h2))
     
     grafana_img_path = "assets/graffanaoriginal.png"
     if os.path.exists(grafana_img_path):
         story.append(Image(grafana_img_path, width=420, height=210))
         story.append(Spacer(1, 4))
-        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.3: Grafana Live Telemetry observability dashboard rendering line graph histories and physical hardware metrics.</i></font>", style_body))
+        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.6: Grafana Live Telemetry observability dashboard displaying line graph histories and physical hardware metrics on port 3015.</i></font>", style_body))
     else:
         story.append(Paragraph("[Missing Grafana Dashboard Image Placeholder]", style_body))
-        
-    story.append(Spacer(1, 15))
-    story.append(Paragraph("B. Prometheus Scraper Console UI", style_h2))
-    
-    # Embed Prometheus Screenshot as Figure 2.4
-    prom_img_path = "assets/prometheusoriginal.png"
-    if os.path.exists(prom_img_path):
-        story.append(Image(prom_img_path, width=420, height=210))
-        story.append(Spacer(1, 4))
-        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.4: Prometheus target metrics scraper console gathering live metrics feeds on port 9095.</i></font>", style_body))
-    else:
-        story.append(Paragraph("[Missing Prometheus UI Image Placeholder]", style_body))
         
     story.append(PageBreak())
 
@@ -713,4 +750,4 @@ def create_devops_report(output_filename):
 
 
 if __name__ == "__main__":
-    create_devops_report("DevOps_Capstone_Project_Portfolio.pdf")
+    create_devops_report("DevOps_Capstone_Project_Dossier.pdf")
