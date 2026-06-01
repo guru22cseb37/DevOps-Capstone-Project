@@ -60,7 +60,6 @@ class NumberedCanvas(canvas.Canvas):
         
         self.setFont("Helvetica", 7.5)
         self.setFillColor(color_slate)
-        self.drawString(54, 45, "Confidential — Academic & Professional System Evaluation")
         
         page_str = f"Page {self._pageNumber} of {page_count}"
         self.drawRightString(letter[0] - 54, 45, page_str)
@@ -945,20 +944,6 @@ def create_devops_report(output_filename):
                            "tracked files from the Git index while keeping them safe locally.", style_bullet))
     
     story.append(Spacer(1, 15))
-    
-    # Signature/Approval Table at bottom inside a beautiful panel
-    sig_data = [
-        [Paragraph("<b>Prepared By:</b>", style_table_cell), Paragraph("<b>Approved By:</b>", style_table_cell)],
-        [Paragraph("DevOps Capstone Project Engineer", style_table_cell), Paragraph("Lead DevOps Capstone Evaluator Panel", style_table_cell)],
-        [Paragraph("Signature: <i>Electronically Signed</i>", style_table_cell), Paragraph("Verdict: <b>Outstanding [Level A]</b>", style_table_cell)]
-    ]
-    sig_table = Table(sig_data, colWidths=[240, 240])
-    sig_table.setStyle(TableStyle([
-        ('LINEABOVE', (0,0), (-1,0), 0.75, colors.HexColor("#e2e8f0")),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
-    ]))
-    story.append(sig_table)
 
     # Build the complete PDF document
     doc.build(story, canvasmaker=NumberedCanvas)
