@@ -34,26 +34,32 @@ class NumberedCanvas(canvas.Canvas):
 
         self.saveState()
         
-        # Primary colors
-        navy_color = colors.HexColor("#0f172a")
-        slate_gray = colors.HexColor("#475569")
+        # Color definitions
+        color_navy = colors.HexColor("#0f172a")
+        color_slate = colors.HexColor("#64748b")
+        color_border = colors.HexColor("#cbd5e1")
         
         # Top Running Header
         self.setFont("Helvetica-Bold", 8)
-        self.setFillColor(navy_color)
+        self.setFillColor(color_navy)
         self.drawString(54, 750, "DEVOPSPULSE — ENTERPRISE DEVOPS ARCHITECTURAL DOSSIER")
         
         self.setFont("Helvetica", 8)
-        self.setFillColor(slate_gray)
-        self.drawRightString(letter[0] - 54, 750, "PORTFOLIO REPORT")
+        self.setFillColor(color_slate)
+        self.drawRightString(letter[0] - 54, 750, "TECHNICAL PORTFOLIO")
         
-        # Header separator line
+        # Header separator line (Elegant thin rule)
         self.setStrokeColor(colors.HexColor("#e2e8f0"))
-        self.setLineWidth(0.75)
+        self.setLineWidth(0.5)
         self.line(54, 742, letter[0] - 54, 742)
         
         # Bottom Running Footer
+        self.setStrokeColor(colors.HexColor("#e2e8f0"))
+        self.setLineWidth(0.5)
         self.line(54, 60, letter[0] - 54, 60)
+        
+        self.setFont("Helvetica", 7.5)
+        self.setFillColor(color_slate)
         self.drawString(54, 45, "Confidential — Academic & Professional System Evaluation")
         
         page_str = f"Page {self._pageNumber} of {page_count}"
@@ -76,40 +82,42 @@ def create_devops_report(output_filename):
         bottomMargin=72
     )
     
-    # Custom Color Palettes
-    color_primary = colors.HexColor("#0f172a")   # Deep Dark Slate
-    color_secondary = colors.HexColor("#2563eb") # Royal Blue
-    color_accent = colors.HexColor("#0ea5e9")    # Ocean Blue
+    # Premium Architectural Color Palette
+    color_primary = colors.HexColor("#0f172a")   # Deep Dark Navy
+    color_secondary = colors.HexColor("#1e3a8a") # Dark Royal Blue
+    color_accent = colors.HexColor("#2563eb")    # Electric Blue Accent
+    color_success = colors.HexColor("#059669")   # Emerald Accent
     color_text = colors.HexColor("#334155")      # Slate Gray Body Text
-    color_light_bg = colors.HexColor("#f8fafc")  # Warm White Panel
+    color_light_bg = colors.HexColor("#f8fafc")  # Cool Muted White
+    color_border = colors.HexColor("#cbd5e1")    # Subtle Border Gray
     
-    # Text Styles
+    # Text Styles Registry
     styles = getSampleStyleSheet()
     
-    # Modify default body text
+    # Modify default body text style for premium breathing space
     styles['Normal'].textColor = color_text
-    styles['Normal'].fontSize = 10
-    styles['Normal'].leading = 14.5
+    styles['Normal'].fontSize = 9.5
+    styles['Normal'].leading = 14
     
-    # Create customized styles
+    # Create customized, highly professional styles
     style_cover_title = ParagraphStyle(
         'CoverTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=25,
-        leading=30,
+        fontSize=24,
+        leading=28,
         textColor=color_primary,
         alignment=0,
-        spaceAfter=12
+        spaceAfter=10
     )
     
     style_cover_subtitle = ParagraphStyle(
         'CoverSub',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=12,
-        leading=16,
-        textColor=color_secondary,
+        fontSize=11,
+        leading=14,
+        textColor=color_accent,
         alignment=0,
         spaceAfter=30
     )
@@ -118,8 +126,8 @@ def create_devops_report(output_filename):
         'MetaLabel',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=9.5,
-        leading=14,
+        fontSize=9,
+        leading=13,
         textColor=color_primary
     )
     
@@ -127,8 +135,8 @@ def create_devops_report(output_filename):
         'MetaVal',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=9.5,
-        leading=14,
+        fontSize=9,
+        leading=13,
         textColor=color_text
     )
 
@@ -136,11 +144,11 @@ def create_devops_report(output_filename):
         'Header1',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=15,
-        leading=19,
+        fontSize=14,
+        leading=18,
         textColor=color_primary,
-        spaceBefore=16,
-        spaceAfter=8,
+        spaceBefore=14,
+        spaceAfter=6,
         keepWithNext=True
     )
 
@@ -148,18 +156,18 @@ def create_devops_report(output_filename):
         'Header2',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=11,
-        leading=15,
-        textColor=color_secondary,
+        fontSize=10.5,
+        leading=14,
+        textColor=color_accent,
         spaceBefore=10,
-        spaceAfter=5,
+        spaceAfter=4,
         keepWithNext=True
     )
 
     style_body = ParagraphStyle(
         'BodyCustom',
         parent=styles['Normal'],
-        spaceAfter=8
+        spaceAfter=6
     )
 
     style_bullet = ParagraphStyle(
@@ -167,7 +175,7 @@ def create_devops_report(output_filename):
         parent=styles['Normal'],
         leftIndent=24,
         firstLineIndent=-12,
-        spaceAfter=5
+        spaceAfter=4
     )
 
     style_table_header = ParagraphStyle(
@@ -175,24 +183,36 @@ def create_devops_report(output_filename):
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
         textColor=colors.white,
-        fontSize=8.5,
+        fontSize=8,
         leading=10
     )
 
     style_table_cell = ParagraphStyle(
         'TableCell',
         parent=styles['Normal'],
-        fontSize=8,
-        leading=10
+        fontSize=7.5,
+        leading=9.5
     )
 
     style_code = ParagraphStyle(
         'CodeCustom',
         parent=styles['Normal'],
         fontName='Courier',
-        fontSize=7,
-        leading=9,
-        textColor=colors.HexColor("#e2e8f0")
+        fontSize=6.5,
+        leading=8.5,
+        textColor=colors.HexColor("#f1f5f9") # High-contrast off-white
+    )
+
+    style_caption = ParagraphStyle(
+        'ImageCaption',
+        parent=styles['Normal'],
+        fontName='Helvetica-Oblique',
+        fontSize=7.5,
+        leading=9.5,
+        textColor=colors.HexColor("#475569"),
+        alignment=1, # Centered
+        spaceBefore=4,
+        spaceAfter=8
     )
 
     story = []
@@ -201,10 +221,11 @@ def create_devops_report(output_filename):
     #  PAGE 1: Cover Page
     # ==============================================================================
     story.append(Spacer(1, 40))
-    # Elegant blue bar at top
+    
+    # Elegant blue/emerald colored accent block
     d_bar = Table([[""]], colWidths=[letter[0] - 108], rowHeights=[6])
     d_bar.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), color_secondary),
+        ('BACKGROUND', (0,0), (-1,-1), color_accent),
         ('BOTTOMPADDING', (0,0), (-1,-1), 0),
         ('TOPPADDING', (0,0), (-1,-1), 0),
     ]))
@@ -214,9 +235,9 @@ def create_devops_report(output_filename):
     story.append(Paragraph("DEVOPS CAPSTONE ARCHITECTURAL ARCHIVE", style_cover_title))
     story.append(Paragraph("A DevSecOps, Continuous Observability, and High-Availability Engineering Blueprint", style_cover_subtitle))
     
-    story.append(Spacer(1, 80))
+    story.append(Spacer(1, 70))
     
-    # Professional submission metadata box
+    # Professional submission metadata box with thin separator borders
     meta_data = [
         [Paragraph("SUBMITTED FOR:", style_meta_label), Paragraph("DevOps Final Capstone Award Evaluation", style_meta_value)],
         [Paragraph("PLATFORM ARCHITECTURE:", style_meta_label), Paragraph("GitHub → Jenkins DevSecOps → Docker Hub → AWS EC2 → Prometheus & Grafana Cluster", style_meta_value)],
@@ -229,24 +250,25 @@ def create_devops_report(output_filename):
     meta_table.setStyle(TableStyle([
         ('ALIGN', (0,0), (-1,-1), 'LEFT'),
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 8),
-        ('TOPPADDING', (0,0), (-1,-1), 8),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 7),
+        ('TOPPADDING', (0,0), (-1,-1), 7),
         ('LINEBELOW', (0,0), (-1,-1), 0.5, colors.HexColor("#f1f5f9")),
     ]))
     story.append(meta_table)
     
     story.append(Spacer(1, 50))
     
-    # Submission Note Panel
+    # Submission Note Panel styled like a high-end admonition box (blue left border)
     note_text = "<b>Executive Notice:</b> This dossier compiles comprehensive design blueprints, automated security audits (DevSecOps), zero-downtime microservice orchestration plans, time-series telemetry registries, and active AWS EC2 proof logs validating the systems delivery cycle of the DevOpsPulse cluster."
     note_panel = Table([[Paragraph(note_text, style_body)]], colWidths=[letter[0] - 108])
     note_panel.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), color_light_bg),
-        ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#cbd5e1")),
+        ('BOX', (0,0), (-1,-1), 0.5, color_border),
         ('LEFTPADDING', (0,0), (-1,-1), 15),
         ('RIGHTPADDING', (0,0), (-1,-1), 15),
         ('TOPPADDING', (0,0), (-1,-1), 12),
         ('BOTTOMPADDING', (0,0), (-1,-1), 12),
+        ('LINELEFT', (0,0), (0,-1), 3.5, color_accent), # Thick accent left-border
     ]))
     story.append(note_panel)
     story.append(PageBreak())
@@ -268,7 +290,7 @@ def create_devops_report(output_filename):
         "The DevOpsPulse application runs on a Node.js runtime, acting as a real-time system metrics scraper. "
         "It fetches live hardware parameters (CPU percentage load, RAM splits, disk availability, and hostname uptimes), "
         "visualizing them via glassmorphic client widgets using Chart.js, while exposing standard REST endpoints `/metrics` "
-        "instrumented under the `prom-client` module for automated scrapers."
+        "instrumented under the `prom-client` library for automated scrapers."
     )
     story.append(Paragraph(intro_p2, style_body))
 
@@ -311,12 +333,21 @@ def create_devops_report(output_filename):
     
     story.append(Spacer(1, 10))
     
-    # Embed Architecture Image as Figure 1.1
+    # Embed Architecture Image inside a clean, thin border table container
     arch_img_path = "assets/architecture_diagram.png"
     if os.path.exists(arch_img_path):
-        story.append(Image(arch_img_path, width=420, height=210))
-        story.append(Spacer(1, 4))
-        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 1.1: System Architecture and Automated End-to-End DevOps Pipeline Diagram.</i></font>", style_body))
+        arch_img = Image(arch_img_path, width=410, height=200)
+        img_container = Table([[arch_img]], colWidths=[420])
+        img_container.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,-1), colors.white),
+            ('BOX', (0,0), (-1,-1), 0.5, color_border),
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+            ('TOPPADDING', (0,0), (-1,-1), 8),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 8),
+        ]))
+        story.append(img_container)
+        story.append(Paragraph("Figure 1.1: System Architecture and Automated End-to-End DevOps Pipeline Diagram.", style_caption))
     else:
         story.append(Paragraph("[Missing Architecture Image Placeholder]", style_body))
         
@@ -345,7 +376,7 @@ def create_devops_report(output_filename):
     )
     story.append(Paragraph(tools_intro, style_body))
     
-    # Tools Table
+    # Tools Table with modern alternating colors & clean padding
     table_data = [
         [Paragraph("Tool", style_table_header), Paragraph("Functional Category", style_table_header), Paragraph("Deployment Details", style_table_header), Paragraph("Integration Interface", style_table_header)],
         
@@ -374,9 +405,9 @@ def create_devops_report(output_filename):
         ('ALIGN', (0,0), (-1,-1), 'LEFT'),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, color_light_bg]),
-        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
-        ('TOPPADDING', (0,0), (-1,-1), 3),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
     ]))
     story.append(tools_table)
     
@@ -511,7 +542,7 @@ def create_devops_report(output_filename):
     )
     story.append(Paragraph(obs_intro_p1, style_body))
     
-    # Custom Metrics Table
+    # Custom Metrics Table with alternating colors & light gray grid borders
     metrics_data = [
         [Paragraph("Metric String Identifier", style_table_header), Paragraph("Metric Type", style_table_header), Paragraph("Telemetry System Purpose", style_table_header)],
         
@@ -534,7 +565,7 @@ def create_devops_report(output_filename):
         ('ALIGN', (0,0), (-1,-1), 'LEFT'),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.white, color_light_bg]),
-        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
+        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
         ('TOPPADDING', (0,0), (-1,-1), 5),
         ('BOTTOMPADDING', (0,0), (-1,-1), 5),
     ]))
@@ -686,15 +717,24 @@ def create_devops_report(output_filename):
     )
     story.append(Paragraph(proof_intro, style_body))
     
-    # Embed Jenkins Screenshot as Figure 2.1
+    # Embed Jenkins Screenshot inside a clean, thin border table container
     story.append(Spacer(1, 10))
     story.append(Paragraph("A. Jenkins Declarative CI/CD Pipeline Dashboard", style_h2))
     
     jenkins_img_path = "assets/jenkinsoriginal.png"
     if os.path.exists(jenkins_img_path):
-        story.append(Image(jenkins_img_path, width=420, height=210))
-        story.append(Spacer(1, 4))
-        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.1: Jenkins Build Automation Stage View showing 100% successful code validations and automated delivery runs.</i></font>", style_body))
+        jk_img = Image(jenkins_img_path, width=410, height=195)
+        img_container = Table([[jk_img]], colWidths=[420])
+        img_container.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,-1), colors.white),
+            ('BOX', (0,0), (-1,-1), 0.5, color_border),
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+            ('TOPPADDING', (0,0), (-1,-1), 8),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 8),
+        ]))
+        story.append(img_container)
+        story.append(Paragraph("Figure 2.1: Jenkins Build Automation Stage View showing 100% successful code validations and automated delivery runs.", style_caption))
     else:
         story.append(Paragraph("[Missing Jenkins Stage View Image Placeholder]", style_body))
         
@@ -723,15 +763,24 @@ def create_devops_report(output_filename):
     )
     story.append(Paragraph(aws_intro, style_body))
     
-    # Embed AWS EC2 Screenshot as Figure 2.2
+    # Embed AWS EC2 Screenshot inside a clean, thin border table container
     story.append(Spacer(1, 10))
     story.append(Paragraph("A. AWS EC2 Active Instances Management Console", style_h2))
     
     aws_img_path = "assets/awsoriginal.png"
     if os.path.exists(aws_img_path):
-        story.append(Image(aws_img_path, width=420, height=210))
-        story.append(Spacer(1, 4))
-        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.2: AWS EC2 active server instances console confirming host environment connectivity on IP address 54.92.189.120.</i></font>", style_body))
+        aws_img = Image(aws_img_path, width=410, height=200)
+        img_container = Table([[aws_img]], colWidths=[420])
+        img_container.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,-1), colors.white),
+            ('BOX', (0,0), (-1,-1), 0.5, color_border),
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+            ('TOPPADDING', (0,0), (-1,-1), 8),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 8),
+        ]))
+        story.append(img_container)
+        story.append(Paragraph("Figure 2.2: AWS EC2 active server instances console confirming host environment connectivity on IP address 54.92.189.120.", style_caption))
     else:
         story.append(Paragraph("[Missing AWS EC2 Management Console Image Placeholder]", style_body))
         
@@ -760,27 +809,45 @@ def create_devops_report(output_filename):
     )
     story.append(Paragraph(dock_intro, style_body))
     
-    # Embed DevOpsPulse Dashboard as Figure 2.3
+    # Embed DevOpsPulse Dashboard inside a clean, thin border table container
     story.append(Spacer(1, 10))
     story.append(Paragraph("A. DevOpsPulse Dynamic Telemetry Web Dashboard", style_h2))
     
     dash_img_path = "assets/dashboardoriginal.png"
     if os.path.exists(dash_img_path):
-        story.append(Image(dash_img_path, width=420, height=210))
-        story.append(Spacer(1, 4))
-        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.3: Live DevOpsPulse System Telemetry Web Application Dashboard Interface running on AWS port 3005.</i></font>", style_body))
+        dash_img = Image(dash_img_path, width=410, height=200)
+        img_container = Table([[dash_img]], colWidths=[420])
+        img_container.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,-1), colors.white),
+            ('BOX', (0,0), (-1,-1), 0.5, color_border),
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+            ('TOPPADDING', (0,0), (-1,-1), 8),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 8),
+        ]))
+        story.append(img_container)
+        story.append(Paragraph("Figure 2.3: Live DevOpsPulse System Telemetry Web Application Dashboard Interface running on AWS port 3005.", style_caption))
     else:
         story.append(Paragraph("[Missing DevOpsPulse Dashboard Image Placeholder]", style_body))
         
-    # Embed Docker Hub Pushed Registry details as Figure 2.4
+    # Embed Docker Hub Screenshot inside a clean, thin border table container
     story.append(Spacer(1, 15))
     story.append(Paragraph("B. Docker Hub Image Creation & Container Runtime Proof", style_h2))
     
     docker_img_path = "assets/dockeroriginal.png"
     if os.path.exists(docker_img_path):
-        story.append(Image(docker_img_path, width=420, height=210))
-        story.append(Spacer(1, 4))
-        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.4: Production Docker image details and running container metadata confirming isolated process execution.</i></font>", style_body))
+        dock_img = Image(docker_img_path, width=410, height=200)
+        img_container = Table([[dock_img]], colWidths=[420])
+        img_container.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,-1), colors.white),
+            ('BOX', (0,0), (-1,-1), 0.5, color_border),
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+            ('TOPPADDING', (0,0), (-1,-1), 8),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 8),
+        ]))
+        story.append(img_container)
+        story.append(Paragraph("Figure 2.4: Production Docker image details and running container metadata confirming isolated process execution.", style_caption))
     else:
         story.append(Paragraph("[Missing Docker Hub Pushed Registry Image Placeholder]", style_body))
         
@@ -797,27 +864,45 @@ def create_devops_report(output_filename):
     )
     story.append(Paragraph(obs_intro, style_body))
     
-    # Embed Prometheus Screenshot as Figure 2.5
+    # Embed Prometheus Screenshot inside a clean, thin border table container
     story.append(Spacer(1, 10))
     story.append(Paragraph("A. Prometheus Scraper Target Metrics UI", style_h2))
     
     prom_img_path = "assets/prometheusoriginal.png"
     if os.path.exists(prom_img_path):
-        story.append(Image(prom_img_path, width=420, height=210))
-        story.append(Spacer(1, 4))
-        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.5: Prometheus target metrics console actively gathering hardware data on host port 9095.</i></font>", style_body))
+        prom_img = Image(prom_img_path, width=410, height=200)
+        img_container = Table([[prom_img]], colWidths=[420])
+        img_container.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,-1), colors.white),
+            ('BOX', (0,0), (-1,-1), 0.5, color_border),
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+            ('TOPPADDING', (0,0), (-1,-1), 8),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 8),
+        ]))
+        story.append(img_container)
+        story.append(Paragraph("Figure 2.5: Prometheus target metrics console actively gathering hardware data on host port 9095.", style_caption))
     else:
         story.append(Paragraph("[Missing Prometheus UI Image Placeholder]", style_body))
         
-    # Embed Grafana Screenshot as Figure 2.6
+    # Embed Grafana Screenshot inside a clean, thin border table container
     story.append(Spacer(1, 15))
     story.append(Paragraph("B. Grafana Telemetry Dashboard Analytics", style_h2))
     
     grafana_img_path = "assets/graffanaoriginal.png"
     if os.path.exists(grafana_img_path):
-        story.append(Image(grafana_img_path, width=420, height=210))
-        story.append(Spacer(1, 4))
-        story.append(Paragraph("<font size=8 color='#64748b'><i>Figure 2.6: Grafana Live Telemetry observability dashboard displaying line graph histories and physical hardware metrics on port 3015.</i></font>", style_body))
+        grafana_img = Image(grafana_img_path, width=410, height=200)
+        img_container = Table([[grafana_img]], colWidths=[420])
+        img_container.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,-1), colors.white),
+            ('BOX', (0,0), (-1,-1), 0.5, color_border),
+            ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+            ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+            ('TOPPADDING', (0,0), (-1,-1), 8),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 8),
+        ]))
+        story.append(img_container)
+        story.append(Paragraph("Figure 2.6: Grafana Live Telemetry observability dashboard displaying line graph histories and physical hardware metrics on port 3015.", style_caption))
     else:
         story.append(Paragraph("[Missing Grafana Dashboard Image Placeholder]", style_body))
         
@@ -861,7 +946,7 @@ def create_devops_report(output_filename):
     
     story.append(Spacer(1, 15))
     
-    # Signature/Approval Table at bottom
+    # Signature/Approval Table at bottom inside a beautiful panel
     sig_data = [
         [Paragraph("<b>Prepared By:</b>", style_table_cell), Paragraph("<b>Approved By:</b>", style_table_cell)],
         [Paragraph("DevOps Capstone Project Engineer", style_table_cell), Paragraph("Lead DevOps Capstone Evaluator Panel", style_table_cell)],
