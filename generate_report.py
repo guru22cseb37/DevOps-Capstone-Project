@@ -186,6 +186,15 @@ def create_devops_report(output_filename):
         leading=11
     )
 
+    style_code = ParagraphStyle(
+        'CodeCustom',
+        parent=styles['Normal'],
+        fontName='Courier',
+        fontSize=7,
+        leading=10,
+        textColor=colors.HexColor("#e2e8f0")
+    )
+
     story = []
 
     # ==============================================================================
@@ -495,7 +504,7 @@ def create_devops_report(output_filename):
         "find \"$BACKUP_DIR\" -name \"pulse_backup_*.tar.gz\" -type f -mtime +$RETENTION_DAYS -delete"
     )
     
-    back_table = Table([[Paragraph(f"<font face='Courier' size=7>{back_code.replace(chr(10), '<br/>')}</font>", style_body)]], colWidths=[letter[0] - 108])
+    back_table = Table([[Paragraph(back_code.replace('\n', '<br/>'), style_code)]], colWidths=[letter[0] - 108])
     back_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#0f172a")),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#334155")),
@@ -531,7 +540,7 @@ def create_devops_report(output_filename):
         "fi"
     )
     
-    clean_table = Table([[Paragraph(f"<font face='Courier' size=7>{clean_code.replace(chr(10), '<br/>')}</font>", style_body)]], colWidths=[letter[0] - 108])
+    clean_table = Table([[Paragraph(clean_code.replace('\n', '<br/>'), style_code)]], colWidths=[letter[0] - 108])
     clean_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#0f172a")),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#334155")),
