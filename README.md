@@ -1,12 +1,24 @@
-# 📊 DevOpsPulse: End-to-End DevOps Pipeline & Web Application
+# 📊 DevOpsPulse: Production-Grade End-to-End DevOps Telemetry System
 
-Welcome to **DevOpsPulse**, a complete production-grade DevOps Capstone Project showcasing a resilient continuous delivery pipeline for a high-performance Node.js system telemetry application. This workspace integrates modern DevOps practices, including containerized microservices, CI/CD automation, cloud system hosting, automated shell utilities, and comprehensive Prometheus and Grafana infrastructure monitoring.
+<div align="center">
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/Node.js-v20%2B-emerald.svg?style=for-the-badge&logo=node.js)](https://nodejs.org/)
+[![Docker Platform](https://img.shields.io/badge/Docker-Enabled-blue.svg?style=for-the-badge&logo=docker)](https://www.docker.com/)
+[![AWS Hosting](https://img.shields.io/badge/AWS-EC2%20Linux-orange.svg?style=for-the-badge&logo=amazon-aws)](https://aws.amazon.com/)
+[![CI/CD Pipeline](https://img.shields.io/badge/Jenkins-Pipeline%20Passing-red.svg?style=for-the-badge&logo=jenkins)](https://www.jenkins.io/)
+
+<p align="center">
+  <strong>A high-performance system telemetry dashboard, automated bash engine, and secure CI/CD continuous delivery lifecycle.</strong>
+</p>
+
+</div>
 
 ---
 
 ## 🚀 Architectural Paradigm
 
-Our automated pipeline follows a standard GitOps flow to deliver quick, reliable builds:
+This repository demonstrates a production-grade continuous integration and continuous deployment (CI/CD) GitOps workflow. The automated loop is triggered upon developer commit, executing unit tests, compiling secure multi-stage Docker images, pushing them to remote registries, and executing continuous delivery to AWS cloud nodes via secure SSH tunnels.
 
 ```mermaid
 graph TD
@@ -40,110 +52,112 @@ graph TD
 
 ---
 
-## 🛠️ Technology Stack Ecosystem
+## 🛠️ Technology Stack & Ecosystem
 
-| Layer | Tools & Technologies |
-| :--- | :--- |
-| **Code & Repository** | Git, GitHub |
-| **Pipeline Automation (CI/CD)** | Jenkins Declarative Pipeline |
-| **Application Services** | Node.js (v20+), Express.js, `prom-client` telemetry instrumentation |
-| **Microservices Containerization** | Docker, multi-stage `Dockerfile`, Docker Compose orchestrations |
-| **Cloud Hosting (IaaS)** | AWS EC2 (Ubuntu 22.04 LTS), Security Groups, Elastic IPs |
-| **Telemetry & Observability** | Prometheus, Grafana, Node Exporter metrics |
-| **Operating System Automation** | POSIX Bash Shell, Crontab scheduling |
+| Technology Layer | Tool / Service | Purpose & Implementation Details |
+| :--- | :--- | :--- |
+| **Version Control** | **Git & GitHub** | Distributed source tracking, pull request code reviews, and webhook events. |
+| **CI/CD Automation** | **Jenkins Engine** | Handles pipeline orchestration, test execution, container builds, and deployment. |
+| **Application Framework** | **Node.js + Express.js** | Core telemetry service exposing REST endpoints and client dashboard interface. |
+| **Containerization** | **Docker & Docker Hub** | Uniform environments using an optimized multi-stage build running on Alpine Linux. |
+| **Cloud Infrastructure** | **AWS EC2 (Ubuntu)** | High-availability hosting using Security Groups, elastic IPs, and SSH key pairs. |
+| **Monitoring Scraper** | **Prometheus** | Pulls CPU, Memory, Disk, and custom application metrics every 5 seconds. |
+| **Data Visualization** | **Grafana Core** | Renders dynamic system metrics using customized glassmorphic dials and line graphs. |
+| **OS Scripting** | **POSIX Bash Shell** | Handles compressed backups and automated system log rotation via crontab schedules. |
 
 ---
 
-## 📁 Repository Directory Taxonomy
+## 📁 Repository Directory Structure
 
-```
-devops-capstone-project/
-├── app/                          # Primary System Dashboard Application
-│   ├── public/                   # Client-side web assets (Dashboard Frontend)
-│   │   ├── css/style.css         # Glassmorphic, dark-mode CSS styling system
-│   │   ├── js/dashboard.js       # Chart.js plotting & command handlers
-│   │   └── index.html            # Primary index landing layout
-│   └── src/server.js             # Express.js REST server & scripts trigger
-├── docker/                       # Containerization & Scraper configurations
-│   ├── docker-compose.yml        # Multi-container Compose runner
-│   └── prometheus.yml            # Prometheus targets & interval details
-├── scripts/                      # OS Automation script utilities
-│   ├── backup.sh                 # Archive compiler & retention swept
-│   └── cleanup.sh                # Logs rotator & directory pruner
-├── assets/                       # Custom telemetry diagram visual assets
-│   ├── architecture_diagram.png
-│   ├── jenkins_pipeline.png
-│   ├── grafana_dashboard.png
-│   └── aws_deployment.png
-├── Dockerfile                    # Production multi-stage build manifest
-├── .dockerignore                 # Excludes development folders
-├── Jenkinsfile                   # Multi-stage CI/CD configuration
-├── generate_report.py            # Python report generator script
-└── README.md                     # Current workspace documentation
+```text
+DevOps-Capstone-Project/
+├── app/                          # Telemetry Dashboard Node.js Web Application
+│   ├── public/                   # Client-side Web UI Assets
+│   │   ├── css/style.css         # Glassmorphic, dark-mode styling system
+│   │   ├── js/dashboard.js       # Real-time Chart.js polling & socket actions
+│   │   └── index.html            # Main dashboard HTML template
+│   └── src/server.js             # Express.js server & shell automation API
+├── docker/                       # Container Orchestration Configurations
+│   ├── docker-compose.yml        # Orchestration manifest for the complete stack
+│   └── prometheus.yml            # Prometheus targets & polling scrape config
+├── scripts/                      # Automated POSIX Bash Script Utilities
+│   ├── backup.sh                 # Compresses configurations/logs into tar.gz backups
+│   └── cleanup.sh                # Sweeps system logs older than 7 days
+├── Dockerfile                    # Production multi-stage compilation manifest
+├── .dockerignore                 # Excludes development caches and local packages
+├── .gitignore                    # Prevents credentials, PDFs, and binary assets from pushing
+└── Jenkinsfile                   # Enterprise declarative continuous delivery pipeline
 ```
 
 ---
 
 ## 💻 Local Launch & Setup Instructions
 
-### Prerequisites
-* [Node.js (v18+)](https://nodejs.org/) & `npm`
-* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+Ensure you have [Node.js (v18+)](https://nodejs.org/) and [Docker Desktop](https://www.docker.com/) installed on your local environment.
 
-### 1. Manual Local Execution (Aesthetic Dashboard)
-To run the Node.js telemetry application locally outside container sandboxes:
+### 1. Standalone Application Setup (Local UI Development)
+To run the telemetry server locally outside a container sandbox:
 ```bash
 # Navigate to application workspace
 cd app
 
-# Install dependencies
+# Install production dependencies
 npm install
 
-# Run backend telemetry server
+# Launch backend telemetry server
 npm start
 ```
-Open **[http://localhost:3000](http://localhost:3000)** in your browser to explore the dashboard.
+* Access the interface locally at: **[http://localhost:3000](http://localhost:3000)**
 
-### 2. Multi-Container Execution (Docker Compose Orchestration)
-To spin up the entire monitoring framework (Application + Node Exporter + Prometheus + Grafana) simultaneously:
+### 2. Multi-Container Orchestrated Deployment (Docker Compose)
+To orchestrate the complete stack (Application + Prometheus + Grafana + Node-Exporter) simultaneously:
 ```bash
-# Start Docker compose inside the docker folder
+# Navigate to Docker orchestration folder
 cd docker
+
+# Compile images and run containers in background
 docker-compose up -d --build
 ```
-This orchestrates the following endpoints across your machine:
-* **💻 DevOpsPulse Application UI**: [http://localhost:3005](http://localhost:3005)
-* **📊 Prometheus Scraper Console**: [http://localhost:9095](http://localhost:9095)
-* **📈 Grafana UI Metrics**: [http://localhost:3015](http://localhost:3015) *(Default Credentials: `admin` / `admin`)*
-* **⚙️ Node Exporter Endpoint**: [http://localhost:9105/metrics](http://localhost:9105/metrics)
+This command mounts and initiates the following local endpoints:
+* **💻 DevOpsPulse Application UI:** [http://localhost:3005](http://localhost:3005)
+* **📊 Prometheus Console Scraper:** [http://localhost:9095](http://localhost:9095)
+* **📈 Grafana Dashboard Visualization:** [http://localhost:3015](http://localhost:3015) *(Default Credentials: `admin` / `admin`)*
+* **⚙️ Node Exporter Raw Metrics:** [http://localhost:9105/metrics](http://localhost:9105/metrics)
 
 ---
 
 ## ⚙️ Cron Schedule Script Automations
 
-We use two automated maintenance bash scripts:
-1. **`scripts/backup.sh`**: Compresses config and log files into `.tar.gz` and prunes backups older than 5 days.
-2. **`scripts/cleanup.sh`**: Rotates log archives, sweeping files ending in `.log` older than 7 days to conserve disk space.
+This project implements automated infrastructure maintenance using lightweight POSIX-compliant shell scripts managed via the system's `crontab` engine.
 
-### Cron Installation
-To automatically schedule these scripts on your hosting machine:
+1. **`scripts/backup.sh`**: Creates compressed tarball backups (`.tar.gz`) of active logs/configs and enforces a 5-day retention policy.
+2. **`scripts/cleanup.sh`**: Automatically scans and prunes logs older than 7 days to optimize hosting disk space.
+
+### Cron Installation Setup
+To activate these automated triggers on your hosting machine:
 ```bash
-# Edit crontab schedules
+# Open crontab configurations
 crontab -e
 ```
-Add the following entries to run backups daily at midnight and cleanups weekly on Sunday at 2 AM:
+Append the following configuration lines to run backups daily at midnight and log sweeps every Sunday at 2:00 AM:
 ```cron
-# Execute daily backup
+# Execute daily configuration/log backup
 0 0 * * * /bin/bash /usr/src/app/scripts/backup.sh >> /var/log/devopspulse/backup_cron.log 2>&1
 
-# Execute weekly log cleanup
+# Execute weekly historical log sweep
 0 2 * * 0 /bin/bash /usr/src/app/scripts/cleanup.sh >> /var/log/devopspulse/cleanup_cron.log 2>&1
 ```
 
 ---
 
-## 🎓 Capstone Credentials & Report
-A beautiful, publication-grade project report has been compiled for submission:
-📂 **[DevOps_Capstone_Project_Report.pdf](file:///c:/Users/cguru/Downloads/devops%20final%20project/DevOps_Capstone_Project_Report.pdf)**
+## 🛡️ Production Security & Optimizations
 
-*Developed with ❤️ as part of the DevOps Capstone Program.*
+This codebase implements several industry-standard enterprise security practices:
+* **Multi-Stage Docker Builds:** Standard compilation layers are strictly isolated. The application dependencies are resolved in the first layer (`builder`), transferring only minified, production-only assets to a minimalist Alpine runtime layer (`runner`).
+* **Non-Root Privileges:** The final container execution drops all root/admin privileges, running under a securely generated, unprivileged `nodejs` user.
+* **Credentials Isolation:** The CI/CD pipeline leverages secure Jenkins secrets management (`withCredentials`), protecting registry logins and AWS deployment SSH keys from leaking into code logs.
+* **Resilient Script Fallbacks:** Telemetry scripting interfaces feature smart runtime discovery. If executed on development workstations lacking bash shells, it automatically redirects console feeds to a simulated sandbox interface, keeping dashboards fully interactive and safe.
+
+---
+
+*Developed as a premier DevOps Capstone Project showcasing cloud infrastructure, automation, and continuous delivery.*

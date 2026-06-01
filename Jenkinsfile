@@ -6,7 +6,7 @@ pipeline {
         DOCKER_IMAGE_NAME   = 'devopsguru/devopspulse-app'
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
         AWS_DEPLOY_CREDENTIALS_ID = 'aws-ec2-ssh-key'
-        AWS_EC2_PUBLIC_IP   = '54.210.45.189'
+        AWS_EC2_PUBLIC_IP   = '54.92.189.120'
         APP_PORT            = '3000'
     }
 
